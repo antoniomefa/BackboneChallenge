@@ -17,8 +17,8 @@ export const contactsApi = createApi({
       }),
     }),
     getContacts: builder.mutation({
-      query: () => ({
-        url: `${CONTACTS}/`,
+      query: (query) => ({
+        url: `${CONTACTS}?${query}`,
         method: 'GET',
       }),
     }),
