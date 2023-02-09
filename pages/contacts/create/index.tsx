@@ -1,41 +1,27 @@
-import React, { useState, useLayoutEffect } from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { saveContact } from '../../../redux/slices/contactSlice'
-import { useFindOneContactMutation, useUpdateContactMutation } from '../../../services/api/contacts'
+import { useCreateContactMutation } from '../../../services/api/contacts'
 import { 
     Box,
     Grid,
     Container,
-    Typography,
-    CircularProgress } from '@mui/material'
+    Typography } from '@mui/material'
 
 import ContactForm from '../../components/ContactForm/ContactForm'
 import CustomSnackbar from '../../components/CustomSnackbar/CustomSnackbar'
 
-const EditContact = () => {
+const CreateContact = () => {
     const { query, back } = useRouter()
     const dispatch = useDispatch()
     const [showSnackbar, setShowSnackbar] = useState(false)
     const [snackbarMessage, setSnackbarMessage] = useState('')
     const contact = useSelector((state: any) => { return state.contactSlice.contact })
-    const [getContact, { isLoading: isLoadingContact }] = useFindOneContactMutation()
-    const [updateContact, { isLoading: isLoadingUpdating }] = useUpdateContactMutation()
+    const [createContact, { isLoading: isLoadingUpdating }] = useCreateContactMutation()
 
-    useLayoutEffect(() => {
-        ( async() => {
-            await getContact(query.contactId).unwrap()
-            .then(result => {
-                dispatch(saveContact(result))
-            })
-            .catch( error => {
-                console.log(error)
-            })
-        })()
-    }, [query.contactId !== contact.id]) 
-
-    const handleEdit = async (newData: any) => {
-        await updateContact(newData).unwrap()
+    const handleCreate = async (newData: any) => {
+        await createContact(newData).unwrap()
         .then((result) => {
             dispatch(saveContact(result))
             back()
@@ -72,23 +58,18 @@ const EditContact = () => {
                             component="h1"
                             variant="h3"
                         >
-                            Editando contacto
+                            Nuevo contacto
                         </Typography>
                     </Box>
 
                     <Box sx={{ marginTop: 4, padding: '20px', borderRadius: 1, boxShadow: 3 }}>
-                        {
-                            isLoadingContact ? 
-                                <CircularProgress /> 
-                            : 
-                                <ContactForm 
-                                    contact={contact}
-                                    handleEdit={handleEdit}
-                                    handleClose={back}
-                                    isLoadingUpdating={isLoadingUpdating}
-                                    isEditing
-                                />
-                        }
+                        <ContactForm 
+                            contact={contact}
+                            handleEdit={handleCreate}
+                            handleClose={back}
+                            isLoadingUpdating={isLoadingUpdating}
+                            isEditing={false}
+                        />
                     </Box>
 
                     {
@@ -107,4 +88,4 @@ const EditContact = () => {
     )
 }
 
-export default EditContact
+export default CreateContact

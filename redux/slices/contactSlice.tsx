@@ -12,14 +12,18 @@ const contactSlice = createSlice({
                 firstName,
                 lastName,
                 email,
-                phone
+                phone,
+                createdAt,
+                updatedAt
              } = action.payload
             state.contact = {
                 id,
                 firstName,
                 lastName,
                 email,
-                phone
+                phone,
+                createdAt,
+                updatedAt
             }
         },
     }   

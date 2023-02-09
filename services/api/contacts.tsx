@@ -12,7 +12,7 @@ export const contactsApi = createApi({
           url: CONTACTS,
           method: 'POST',
           body: {
-              data: contact
+              ...contact
           },
       }),
     }),
@@ -33,7 +33,7 @@ export const contactsApi = createApi({
           url: `${CONTACTS}/${id}`,
           method: 'PUT',
           body: {
-              data: contact
+              ...contact
           },
       }),
     }),

@@ -1,26 +1,39 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { saveContactsList } from '../../redux/slices/contactsListSlice'
-import { useGetContactsMutation } from '../../services/api/contacts'
 
-import { List, TextField, Typography, Box, InputLabel, FormControl, NativeSelect, IconButton } from '@mui/material'
+import { 
+    Box,
+    Fab,
+    Grid,
+    List,
+    Select,
+    MenuItem,
+    Container,
+    TextField,
+    IconButton,
+    InputLabel,
+    Pagination,
+    Typography,
+    FormControl,
+    useMediaQuery,
+    CircularProgress } from '@mui/material'
+import AddIcon from '@mui/icons-material/Add';
 import ImportExportIcon from '@mui/icons-material/ImportExport'
 
-import Navbar from '../components/Navbar/Navbar'
+import { saveContactsList } from '../../redux/slices/contactsListSlice'
+import { useGetContactsMutation } from '../../services/api/contacts'
 import ContactItem from '../components/ContactItem/ContactItem'
-import Paginator from '../components/Paginator/Paginator'
+
 
 const Contacts = () => {
     const dispatch = useDispatch()
     const contactsList = useSelector((state: any) => { return state.contactsListSlice.contactsList })
-    const [query, setQuery] = useState('_sort=firstName:ASC')
+    const [query, setQuery] = useState('_sort=firstName:ASC') // Se inicializa el query para la primera petición de contactos al api
     const [searchBy, setSearchBy] = useState('firstName')
     const [orderBy, setOrderBy] = useState('firstName')
     const [order, setOrder] = useState('ASC')
-    const [getContacts, { 
-        data: contactsFetched, 
-        isLoading: isLoadingContacts, 
-        isSuccess: contactsFetchedSuccess }] = useGetContactsMutation()
+    const [getContacts, { isLoading: isLoadingContacts }] = useGetContactsMutation()
+    const minWidth = useMediaQuery('(min-width:600px)') // Valida el width de la ventana actual
 
     useEffect(() => {
         ( async() => {
@@ -29,10 +42,7 @@ const Contacts = () => {
                 dispatch(saveContactsList(result))
             })
             .catch(async error => {
-                // Alert.alert(
-                //     'Error al obtener la lista de contactos',
-                //     'Error:'+'\n\n'+error?.data?.error?.message
-                // )
+                //TODO: Custom hook que muestre un mensaje de error, de acuerdo al código de error que recibe
             })
         })()
     }, [query])
@@ -43,7 +53,6 @@ const Contacts = () => {
         newQuery += param === 'perPage' ? `&perPage=${value}` : `&perPage=${contactsList.perPage}`
         newQuery += param === 'sort' ? `&_sort=${orderBy}:${value}` : `&_sort=${orderBy}:${order}`
         newQuery += param === 'search' ? `&${searchBy}_contains=${value}` : ''
-        console.log(newQuery)
         setQuery(newQuery)
     }
 
@@ -57,105 +66,149 @@ const Contacts = () => {
     }
     
     return(
-        <div>
-            <Navbar/>
-            <Typography
-                sx={{ display: 'block' }}
-                component="h1"
-                variant="h2"
-                color="text.primary"
-            >
-                Directorio Backbone Systems
-            </Typography>
+        <Container maxWidth='md' sx={{ marginTop: '20px'}} >
+            <Grid container xs={12} >
+                <Box sx={{ flexGrow: 1 }}>
+                    <Box sx={{ backgroundColor: '#1A2027', color: '#ffffff', borderRadius: 1, padding: '10px', textAlign: 'center' }}>
+                        <Typography
+                            component="h1"
+                            variant="h3"
+                        >
+                            Directorio de contactos
+                        </Typography>
+                    </Box>
+                
+                    <Box sx={{ marginTop: 4, padding: '20px', borderRadius: 1, boxShadow: 3 }}>
+                        <Grid container spacing={2} >
+                            <Grid item xs={4} md={2} >
+                                <FormControl>
+                                    <InputLabel variant="standard" htmlFor="searchby-selector">
+                                        Buscar por
+                                    </InputLabel>
+                                    <Select
+                                        defaultValue={'firstName'}
+                                        onChange={event => setSearchBy(event.target.value)}
+                                        labelId={'searchby-selector'}
+                                        variant="standard"
+                                    >
+                                        <MenuItem value={'firstName'}>Nombre</MenuItem>
+                                        <MenuItem value={'lastName'}>Apellido</MenuItem>
+                                        <MenuItem value={'email'}>Correo</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            
+                            <Grid item xs={8} md={5} >
+                                <TextField
+                                    id="filled-search"
+                                    label="Buscar contacto"
+                                    type="search"
+                                    fullWidth
+                                    variant="standard" // filled
+                                    onChange={(event) => onChangeQuery('search', event.target.value)}
+                                />
+                            </Grid>
 
-            <Box sx={{ minWidth: 120 }}>
-                <FormControl >
-                    <InputLabel variant="standard" htmlFor="searchby-selector">
-                        Buscar por
-                    </InputLabel>
-                    <NativeSelect
-                        defaultValue={'firstName'}
-                        onChange={event => setSearchBy(event.target.value)}
-                        inputProps={{
-                            name: 'searchBy',
-                            id: 'searchby-selector',
-                        }}
-                    >
-                        <option value={'firstName'}>Nombre</option>
-                        <option value={'lastName'}>Apellido</option>
-                        <option value={'email'}>Correo</option>
-                    </NativeSelect>
-                </FormControl>
+                            <Grid item xs={7} md={3} >
+                                <FormControl >
+                                    <InputLabel variant="standard" htmlFor="orderby-selector">
+                                        Ordenar por
+                                    </InputLabel>
+                                    <Select
+                                        defaultValue={'firstName'}
+                                        onChange={event => setOrderBy(event.target.value)}
+                                        labelId={'orderby-selector'}
+                                        variant="standard"
+                                    >
+                                        <MenuItem value={'firstName'}>Nombre</MenuItem>
+                                        <MenuItem value={'createdAt'}>Fecha de creación</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Grid>
 
-                <TextField
-                    id="filled-search"
-                    label="Buscar contacto"
-                    type="search"
-                    variant="standard" // filled
-                    onChange={(event) => onChangeQuery('search', event.target.value)}
-                />
+                            <Grid item xs={3} md={1} sx={{ alignSelf: 'center'}}>
+                                <IconButton 
+                                    aria-label="sort button"
+                                    color='primary'
+                                    onClick={() => toggleOrder()}
+                                >
+                                    <ImportExportIcon />
+                                </IconButton>
+                            </Grid>
 
-                <FormControl >
-                    <InputLabel variant="standard" htmlFor="orderby-selector">
-                        Ordenar por
-                    </InputLabel>
-                    <NativeSelect
-                        defaultValue={'firstName'}
-                        onChange={event => setOrderBy(event.target.value)}
-                        inputProps={{
-                            name: 'orderBy',
-                            id: 'orderby-selector',
-                        }}
-                    >
-                        <option value={'firstName'}>Nombre</option>
-                        <option value={'createdAt'}>Fecha de creación</option>
-                    </NativeSelect>
-                </FormControl>
+                            <Grid item xs={2} md={1} >
+                                <Fab size={ minWidth ? "large" : "small" } color="primary" aria-label="add" href='/contacts/create'>
+                                    <AddIcon />
+                                </Fab>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                    
+                    <Grid container xs={12} sx={{ justifyContent: 'space-between', padding: 2 }} >
+                        <Box>
+                            <Typography
+                                sx={{ marginRight: '20px'}}
+                                component="span"
+                            >
+                                Resultados:
+                            </Typography>
+                            <Typography
+                                component="span"
+                            >
+                                {contactsList.count}
+                            </Typography>
+                        </Box>
+                        <Box>
+                            <Typography
+                                sx={{ marginRight: '20px'}}
+                                component="span"
+                            >
+                                Elementos por página:
+                            </Typography>
+                            <Select
+                                defaultValue={10}
+                                onChange={event => onChangeQuery('perPage', event.target.value)}
+                                labelId={'elements-selector'}
+                                variant="standard"
+                            >
+                                <MenuItem value={10}>10</MenuItem>
+                                <MenuItem value={20}>20</MenuItem>
+                                <MenuItem value={50}>50</MenuItem>
+                            </Select>
+                        </Box>
+                    </Grid>
 
-                <IconButton aria-label="sort button" onClick={() => toggleOrder()}>
-                    <ImportExportIcon />
-                </IconButton>
-            </Box>
-
-            
-            <Typography
-                sx={{ display: 'block' }}
-                component="span"
-                variant="h6"
-                color="text.primary"
-            >
-                Resultados
-            </Typography>
-            <Typography
-                sx={{ display: 'block' }}
-                component="span"
-                variant="h6"
-                color="text.primary"
-            >
-                {contactsList.count}
-            </Typography>
-
-            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                {
-                    contactsList?.results &&
-                    contactsList.results.map( contact => {
-                        return (
-                            <ContactItem contact={contact} key={contact.id}/>
-                        )
-                    })
-                }
-            </List>
-
-            {
-                contactsList?.currentPage &&
-                <Paginator
-                    count={contactsList.totalPages}
-                    page={contactsList.currentPage}
-                    onChangeQuery={onChangeQuery}
-                    onChange={(event: React.ChangeEvent<unknown>, value: number) => onChangeQuery('page', value)}
-                />
-            }
-        </div>
+                    <Grid container xs={12}  sx={{ justifyContent: 'center' }} >
+                        {
+                            !isLoadingContacts ? (
+                                <List sx={{ width: '100%', maxWidth: 850 }}>
+                                    {
+                                        contactsList?.results &&
+                                        contactsList.results.map( contact => {
+                                            return (
+                                                <ContactItem contact={contact} key={contact.id} isDeleting={false} />
+                                            )
+                                        })
+                                    }
+                                </List>
+                            ) : <CircularProgress />
+                        }
+                    </Grid>
+                    {
+                        contactsList?.currentPage &&
+                        <Grid container xs={12} sx={{ marginTop: 4, justifyContent: 'center', alignItems: 'center', marginBottom: 6 }}>
+                            <Pagination 
+                                count={contactsList.totalPages}
+                                page={contactsList.currentPage}
+                                onChange={(event: React.ChangeEvent<unknown>, value: number) => onChangeQuery('page', value)}
+                                color="primary"
+                                size={ minWidth ? 'large' : 'small' }
+                            />
+                        </Grid>
+                    }
+                </Box>
+            </Grid>
+        </Container>
     )
 }
 
