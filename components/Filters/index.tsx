@@ -13,16 +13,16 @@ import {
 import AddIcon from '@mui/icons-material/Add'
 import ImportExportIcon from '@mui/icons-material/ImportExport'
 import useDebounce from '../../hooks/useDebounce'
+import useDidUpdateEffect from '../../hooks/useDidUpdateEffect' // Custom hook que permite evitar se ejecute un efecto en el primer render del componente
 
 const FiltersBar = ({ setSearchBy, onChangeQuery, setOrderBy, toggleOrder, count, minWidth }) => {
     const [searchText, setSearchText] = useState('')
     const searchTextDebounced = useDebounce(searchText, 500) // Custom hook que permite retrasar la búsqueda el tiempo especificado en ms
 
-    useEffect(() => {
+    useDidUpdateEffect(() => {
         onChangeQuery('search', searchTextDebounced)
     }, [searchTextDebounced])
     
-
     return (
         <>
             <Box sx={styles.filtersWrapper}>

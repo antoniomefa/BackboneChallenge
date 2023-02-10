@@ -19,6 +19,7 @@
 - Consumo del API con RTK-Query para el CRUD
 - Manejo de errores http con mensaje en un SnackBar personalizado
 - Custom hook "useDebounce" que permite retrasar la búsqueda el tiempo especificado
+- Custom hook "useDidUpdateEffect" que permite evitar la primera ejecución de un efecto
 
 ## Url del proyecto
 - Desplegado en vercel:  https://backbone-challenge-teal.vercel.app/
