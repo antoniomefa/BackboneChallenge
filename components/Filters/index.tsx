@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { 
     Box,
     Fab,
@@ -12,8 +12,16 @@ import {
     FormControl } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import ImportExportIcon from '@mui/icons-material/ImportExport'
+import useDebounce from '../../hooks/useDebounce'
 
 const FiltersBar = ({ setSearchBy, onChangeQuery, setOrderBy, toggleOrder, count, minWidth }) => {
+    const [searchText, setSearchText] = useState('')
+    const searchTextDebounced = useDebounce(searchText, 500) // Custom hook que permite retrasar la búsqueda el tiempo especificado en ms
+
+    useEffect(() => {
+        onChangeQuery('search', searchTextDebounced)
+    }, [searchTextDebounced])
+    
 
     return (
         <>
@@ -44,7 +52,7 @@ const FiltersBar = ({ setSearchBy, onChangeQuery, setOrderBy, toggleOrder, count
                             type="search"
                             fullWidth
                             variant="standard"
-                            onChange={(event) => onChangeQuery('search', event.target.value)}
+                            onChange={(event) => setSearchText(event.target.value)}
                         />
                     </Grid>
 
