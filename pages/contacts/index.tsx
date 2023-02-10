@@ -4,9 +4,9 @@ import { Box, Grid, List, Container, Pagination, Typography, useMediaQuery, Circ
 import { saveContactsList } from '../../redux/slices/contactsListSlice'
 import { useGetContactsMutation } from '../../api/contacts'
 import { useErrorMessage } from '../../hooks/useErrorMessage'
-import FiltersBar from '../components/Filters'
-import CustomSnackbar from '../components/CustomSnackbar/CustomSnackbar'
-import ContactItem from '../components/ContactItem/ContactItem'
+import FiltersBar from '../../components/Filters'
+import CustomSnackbar from '../../components/CustomSnackbar/CustomSnackbar'
+import ContactItem from '../../components/ContactItem/ContactItem'
 import { ContactType, StateType } from '../../utils/types'
 
 const Contacts: React.FC = () => {

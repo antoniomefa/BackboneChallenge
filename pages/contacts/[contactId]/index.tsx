@@ -10,8 +10,8 @@ import {
     Typography,
     CircularProgress } from '@mui/material'
 import { useErrorMessage } from '../../../hooks/useErrorMessage'
-import ContactForm from '../../components/ContactForm/ContactForm'
-import CustomSnackbar from '../../components/CustomSnackbar/CustomSnackbar'
+import ContactForm from '../../../components/ContactForm/ContactForm'
+import CustomSnackbar from '../../../components/CustomSnackbar/CustomSnackbar'
 import { ContactType } from '../../../utils/types'
 
 const EditContact: React.FC = () => {

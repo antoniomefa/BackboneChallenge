@@ -8,8 +8,8 @@ import { Box, Grid, Container, Typography, Button, CircularProgress } from '@mui
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import DeleteIcon from '@mui/icons-material/Delete'
 import { useErrorMessage } from '../../../hooks/useErrorMessage'
-import ContactItem from '../../components/ContactItem/ContactItem'
-import CustomSnackbar from '../../components/CustomSnackbar/CustomSnackbar'
+import ContactItem from '../../../components/ContactItem/ContactItem'
+import CustomSnackbar from '../../../components/CustomSnackbar/CustomSnackbar'
 
 const DeleteContact: React.FC = () => {
     const { query, back } = useRouter()
