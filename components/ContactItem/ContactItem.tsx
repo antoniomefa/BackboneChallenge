@@ -12,19 +12,19 @@ import {
     ListItemAvatar } from '@mui/material'
 import EditIcon from '@mui/icons-material/Edit'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from '@mui/icons-material/Delete'
   
-const ITEM_HEIGHT = 48;
+const ITEM_HEIGHT = 48
 
 const ContactItem = ({ contact, isDeleting }) => {
     const { id, firstName, lastName, phone, email } = contact
-    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+    const open = Boolean(anchorEl)
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorEl(event.currentTarget);
+        setAnchorEl(event.currentTarget)
     };
     const handleClose = () => {
-        setAnchorEl(null);
+        setAnchorEl(null)
     };
 
     return (

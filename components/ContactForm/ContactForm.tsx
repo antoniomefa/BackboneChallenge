@@ -6,7 +6,7 @@ import SaveIcon from '@mui/icons-material/Save'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import PhoneIcon from '@mui/icons-material/Phone'
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
-import { ContactType } from '../../utils/types';
+import { ContactType } from '../../utils/types'
 
 const ContactForm = ({ contact, handleEdit, handleClose, isLoadingUpdating, isEditing }) => {
     const { control, handleSubmit } = useForm({
