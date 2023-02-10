@@ -1,11 +1,10 @@
-## BackboneChallenge
+## Backbone Challenge
 
 <p align="center">
-    <img src="/assets/hero.png" width="350"/>
-    <img src="/assets/addressbook.png" width="350"/>
+    <img src="/assets/addressbook.png" width="800"/>
 </p>
 
-## Description del proyecto
+## Descripción del proyecto
 - La aplicación despliega un directorio de contactos que obtiene de un API provista previamente.
 - Permite consultar, editar, borrar y crear nuevos contactos.
 - Permite filtrar y paginar los resultados
@@ -23,5 +22,8 @@
 ## Url del proyecto
 - Desplegado en vercel:  https://backbone-challenge-teal.vercel.app/
 
+<p align="center">
+    <img src="/assets/addressbook.png" width="800"/>
+</p>
 
 Por: Antonio Mendiola Farías - 2023
