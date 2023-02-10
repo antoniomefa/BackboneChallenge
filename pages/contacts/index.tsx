@@ -5,8 +5,8 @@ import { saveContactsList } from '../../redux/slices/contactsListSlice'
 import { useGetContactsMutation } from '../../api/contacts'
 import { useErrorMessage } from '../../hooks/useErrorMessage'
 import FiltersBar from '../../components/Filters'
-import CustomSnackbar from '../../components/CustomSnackbar/CustomSnackbar'
-import ContactItem from '../../components/ContactItem/ContactItem'
+import CustomSnackbar from '../../components/CustomSnackbar'
+import ContactItem from '../../components/ContactItem'
 import { ContactType, StateType } from '../../utils/types'
 
 const Contacts: React.FC = () => {
@@ -49,10 +49,10 @@ const Contacts: React.FC = () => {
     }
     
     return(
-        <Container maxWidth='md' sx={{ marginTop: '20px'}} >
+        <Container maxWidth='md' sx={styles.container} >
             <Grid container >
-                <Box sx={{ flexGrow: 1 }}>
-                    <Box sx={{ backgroundColor: '#1A2027', color: '#ffffff', borderRadius: 1, padding: '10px', textAlign: 'center' }}>
+                <Box sx={styles.boxWrapper}>
+                    <Box sx={styles.titleWrapper}>
                         <Typography component="h1" variant="h3" >
                             Directorio de contactos
                         </Typography>
@@ -67,10 +67,10 @@ const Contacts: React.FC = () => {
                         minWidth={minWidth}
                     />
 
-                    <Grid container sx={{ justifyContent: 'center' }} >
+                    <Grid container sx={styles.listContainer} >
                         {
                             !isLoadingContacts ? (
-                                <List sx={{ width: '100%', maxWidth: 850 }}>
+                                <List sx={styles.list}>
                                     {
                                         contactsList?.results &&
                                         contactsList.results.map( (contact: ContactType): JSX.Element => {
@@ -85,7 +85,7 @@ const Contacts: React.FC = () => {
                     </Grid>
                     {
                         contactsList?.currentPage &&
-                        <Grid container sx={{ marginTop: 4, justifyContent: 'center', alignItems: 'center', marginBottom: 6 }}>
+                        <Grid container sx={styles.paginationWrapper}>
                             <Pagination 
                                 count={contactsList.totalPages}
                                 page={contactsList.currentPage}
@@ -111,3 +111,32 @@ const Contacts: React.FC = () => {
 }
 
 export default Contacts
+
+const styles = {
+    container: {
+        marginTop: '20px'
+    },
+    boxWrapper: {
+        flexGrow: 1
+    },
+    titleWrapper: {
+        color: '#ffffff',
+        borderRadius: 1,
+        padding: '10px',
+        textAlign: 'center',
+        backgroundColor: '#1A2027'
+    },
+    listContainer: {
+        justifyContent: 'center'
+    },
+    list: {
+        width: '100%',
+        maxWidth: 850
+    },
+    paginationWrapper: {
+        marginTop: 4,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: 6
+    }
+}

@@ -10,8 +10,8 @@ import {
     Typography,
     CircularProgress } from '@mui/material'
 import { useErrorMessage } from '../../../hooks/useErrorMessage'
-import ContactForm from '../../../components/ContactForm/ContactForm'
-import CustomSnackbar from '../../../components/CustomSnackbar/CustomSnackbar'
+import ContactForm from '../../../components/ContactForm'
+import CustomSnackbar from '../../../components/CustomSnackbar'
 import { ContactType } from '../../../utils/types'
 
 const EditContact: React.FC = () => {
@@ -49,10 +49,10 @@ const EditContact: React.FC = () => {
     }
 
     return(
-        <Container maxWidth='md' sx={{ marginTop: '20px'}} >
+        <Container maxWidth='md' sx={styles.container} >
             <Grid container >
-                <Box sx={{ flexGrow: 1 }}>
-                    <Box sx={{ backgroundColor: '#1A2027', color: '#ffffff', borderRadius: 1, padding: '10px', textAlign: 'center' }}>
+                <Box sx={styles.boxWrapper}>
+                    <Box sx={styles.titleWrapper}>
                         <Typography
                             component="h1"
                             variant="h3"
@@ -61,7 +61,7 @@ const EditContact: React.FC = () => {
                         </Typography>
                     </Box>
 
-                    <Box sx={{ marginTop: 4, padding: '20px', borderRadius: 1, boxShadow: 3 }}>
+                    <Box sx={styles.contactWrapper}>
                         {
                             isLoadingContact ? 
                                 <CircularProgress /> 
@@ -93,3 +93,25 @@ const EditContact: React.FC = () => {
 }
 
 export default EditContact
+
+const styles = {
+    container: { 
+        marginTop: '20px'
+    },
+    boxWrapper: { 
+        flexGrow: 1
+    },
+    titleWrapper: {
+        borderRadius: 1,
+        padding: '10px',
+        textAlign: 'center',
+        color: '#ffffff',
+        backgroundColor: '#1A2027',
+    },
+    contactWrapper: {
+        marginTop: 4,
+        padding: '20px',
+        borderRadius: 1,
+        boxShadow: 3
+    }
+}

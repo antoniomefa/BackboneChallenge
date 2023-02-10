@@ -26,7 +26,7 @@ const ContactForm = ({ contact, handleEdit, handleClose, isLoadingUpdating, isEd
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <Grid container >
-                <Grid container spacing={2} sx={{ marginBottom: 2 }} >
+                <Grid container spacing={2} sx={styles.fieldRow} >
                     <Grid item xs={6} md={6} >
                         <Controller
                             name="firstName"
@@ -39,7 +39,7 @@ const ContactForm = ({ contact, handleEdit, handleClose, isLoadingUpdating, isEd
                                     value={value}
                                     onChange={onChange}
                                     error={!!error}
-                                    sx={{ width: '100%'}}
+                                    sx={styles.textField}
                                     helperText={error ? error.message : null}
                                     InputProps={{
                                         startAdornment: (
@@ -64,7 +64,7 @@ const ContactForm = ({ contact, handleEdit, handleClose, isLoadingUpdating, isEd
                                     value={value}
                                     onChange={onChange}
                                     error={!!error}
-                                    sx={{ width: '100%'}}
+                                    sx={styles.textField}
                                     helperText={error ? error.message : null}
                                     InputProps={{
                                         startAdornment: (
@@ -79,7 +79,7 @@ const ContactForm = ({ contact, handleEdit, handleClose, isLoadingUpdating, isEd
                     </Grid>
                 </Grid>
                 
-                <Grid container spacing={2} sx={{ marginBottom: 2 }} >
+                <Grid container spacing={2} sx={styles.fieldRow} >
                     <Grid item xs={6} md={6} >
                         <Controller
                             name="phone"
@@ -92,7 +92,7 @@ const ContactForm = ({ contact, handleEdit, handleClose, isLoadingUpdating, isEd
                                 value={value}
                                 onChange={onChange}
                                 error={!!error}
-                                sx={{ width: '100%'}}
+                                sx={styles.textField}
                                 helperText={error ? error.message : null}
                                 type="tel"
                                 InputProps={{
@@ -119,7 +119,7 @@ const ContactForm = ({ contact, handleEdit, handleClose, isLoadingUpdating, isEd
                                 value={value}
                                 onChange={onChange}
                                 error={!!error}
-                                sx={{ width: '100%'}}
+                                sx={styles.textField}
                                 helperText={error ? error.message : null}
                                 InputProps={{
                                     startAdornment: (
@@ -134,7 +134,7 @@ const ContactForm = ({ contact, handleEdit, handleClose, isLoadingUpdating, isEd
                     </Grid>
                 </Grid>
 
-                <Grid container spacing={2} sx={{ marginTop: 2, alignItems: 'center' }} >
+                <Grid container spacing={2} sx={styles.buttonsContainer} >
                     <Grid item xs={6} md={6} >
                         <Button variant="text" startIcon={<ArrowBackIosIcon />} onClick={handleClose}>
                             Volver
@@ -157,3 +157,16 @@ const ContactForm = ({ contact, handleEdit, handleClose, isLoadingUpdating, isEd
 }
 
 export default ContactForm
+
+const styles = {
+    fieldRow: {
+        marginBottom: 2
+    },
+    textField: { 
+        width: '100%'
+    },
+    buttonsContainer: { 
+        marginTop: 2,
+        alignItems: 'center'
+    },
+}

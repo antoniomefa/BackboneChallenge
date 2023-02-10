@@ -29,16 +29,16 @@ const ContactItem = ({ contact, isDeleting }) => {
 
     return (
         <React.Fragment>
-            <ListItem alignItems="flex-start" sx={{ boxShadow: 3, marginBottom: 1 }}>
-                <ListItemAvatar sx={{ marginRight: 2 }}>
-                    <Avatar alt={firstName} src="/" sx={{ width: 50, height: 50 }} />
+            <ListItem alignItems="flex-start" sx={styles.listItem}>
+                <ListItemAvatar sx={styles.avatarWrapper}>
+                    <Avatar alt={firstName} src="/" sx={styles.avatar} />
                 </ListItemAvatar>
                 <ListItemText
                     primary={`${firstName} ${lastName}`}
                     secondary={
                         <React.Fragment>
                             <Typography
-                                sx={{ display: 'block' }}
+                                sx={styles.text}
                                 component="span"
                                 variant="body2"
                                 color="text.primary"
@@ -46,7 +46,7 @@ const ContactItem = ({ contact, isDeleting }) => {
                                 {phone}
                             </Typography>
                             <Typography
-                                sx={{ display: 'block' }}
+                                sx={styles.text}
                                 component="span"
                                 variant="body2"
                             >
@@ -117,3 +117,20 @@ const ContactItem = ({ contact, isDeleting }) => {
 }
 
 export default ContactItem
+
+const styles = {
+    listItem: { 
+        boxShadow: 3, 
+        marginBottom: 1 
+    },
+    avatarWrapper: { 
+        marginRight: 2
+    },
+    avatar: {
+        width: 50, 
+        height: 50 
+    },
+    text: {
+        display: 'block'
+    }
+}

@@ -5,11 +5,11 @@ import Link from 'next/link'
 
 const Home: React.FC = () => {
     return(
-        <Container maxWidth="lg" sx={{ display: 'flex', marginTop: '20px'}}>
-            <Box sx={{ flexGrow: 1 }}>
+        <Container maxWidth="lg" sx={styles.container}>
+            <Box sx={styles.boxWrapper}>
                 <Grid container spacing={2}>
                     <Grid item xs={12}>
-                        <Box sx={{ backgroundColor: '#1A2027', color: '#ffffff', borderRadius: 1, padding: '50px', textAlign: 'center' }}>
+                        <Box sx={styles.hero}>
                             <Typography
                                 component="h1"
                                 variant="h3"
@@ -38,7 +38,7 @@ const Home: React.FC = () => {
                         </Box>
                     </Grid>
                 </Grid>
-                <Box sx={{ marginTop: '50px', textAlign: 'center' }}>
+                <Box sx={styles.buttonWrapper}>
                     <Link href="/contacts" legacyBehavior>
                         <Button
                             variant="contained"
@@ -56,3 +56,24 @@ const Home: React.FC = () => {
 }
 
 export default Home
+
+const styles = {
+    container: {
+        display: 'flex',
+        marginTop: '20px'
+    },
+    boxWrapper: {
+        flexGrow: 1
+    },
+    hero: {
+        borderRadius: 1,
+        padding: '50px',
+        color: '#ffffff',
+        textAlign: 'center',
+        backgroundColor: '#1A2027',
+    },
+    buttonWrapper: {
+        marginTop: '50px',
+        textAlign: 'center'
+    }
+}

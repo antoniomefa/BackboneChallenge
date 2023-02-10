@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { saveContact } from '../../../redux/slices/contactSlice'
 import { useCreateContactMutation } from '../../../api/contacts'
 import { Box, Grid, Container, Typography } from '@mui/material'
-import ContactForm from '../../../components/ContactForm/ContactForm'
-import CustomSnackbar from '../../../components/CustomSnackbar/CustomSnackbar'
+import ContactForm from '../../../components/ContactForm'
+import CustomSnackbar from '../../../components/CustomSnackbar'
 import { useErrorMessage } from '../../../hooks/useErrorMessage'
 import { ContactType } from '../../../utils/types'
 
@@ -30,16 +30,16 @@ const CreateContact: React.FC = () => {
     }
 
     return(
-        <Container maxWidth='md' sx={{ marginTop: '20px'}} >
+        <Container maxWidth='md' sx={styles.container} >
             <Grid container >
-                <Box sx={{ flexGrow: 1 }}>
-                    <Box sx={{ backgroundColor: '#1A2027', color: '#ffffff', borderRadius: 1, padding: '10px', textAlign: 'center' }}>
+                <Box sx={styles.boxWrapper}>
+                    <Box sx={styles.titleWrapper}>
                         <Typography component="h1" variant="h3" >
                             Nuevo contacto
                         </Typography>
                     </Box>
 
-                    <Box sx={{ marginTop: 4, padding: '20px', borderRadius: 1, boxShadow: 3 }}>
+                    <Box sx={styles.formWrapper}>
                         <ContactForm 
                             contact={contact}
                             handleEdit={handleCreate}
@@ -66,3 +66,25 @@ const CreateContact: React.FC = () => {
 }
 
 export default CreateContact
+
+const styles = {
+    container: {
+        marginTop: '20px'
+    },
+    boxWrapper: {
+        flexGrow: 1
+    },
+    titleWrapper: {
+        color: '#ffffff',
+        borderRadius: 1,
+        padding: '10px',
+        textAlign: 'center',
+        backgroundColor: '#1A2027',
+    },
+    formWrapper: {
+        marginTop: 4,
+        padding: '20px',
+        borderRadius: 1,
+        boxShadow: 3
+    }
+}

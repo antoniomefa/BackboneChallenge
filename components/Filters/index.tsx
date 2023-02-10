@@ -17,7 +17,7 @@ const FiltersBar = ({ setSearchBy, onChangeQuery, setOrderBy, toggleOrder, count
 
     return (
         <>
-            <Box sx={{ marginTop: 4, padding: '20px', borderRadius: 1, boxShadow: 3 }}>
+            <Box sx={styles.filtersWrapper}>
                 <Grid container spacing={2} >
                     <Grid item xs={4} md={2} >
                         <FormControl>
@@ -65,7 +65,7 @@ const FiltersBar = ({ setSearchBy, onChangeQuery, setOrderBy, toggleOrder, count
                         </FormControl>
                     </Grid>
 
-                    <Grid item xs={3} md={1} sx={{ alignSelf: 'center'}}>
+                    <Grid item xs={3} md={1} sx={styles.toggleWrapper}>
                         <IconButton 
                             aria-label="sort button"
                             color='primary'
@@ -83,10 +83,10 @@ const FiltersBar = ({ setSearchBy, onChangeQuery, setOrderBy, toggleOrder, count
                 </Grid>
             </Box>
             
-            <Grid container sx={{ justifyContent: 'space-between', padding: 2 }} >
+            <Grid container sx={styles.resultsRow} >
                 <Box>
                     <Typography
-                        sx={{ marginRight: '20px'}}
+                        sx={styles.text}
                         component="span"
                     >
                         Resultados:
@@ -99,7 +99,7 @@ const FiltersBar = ({ setSearchBy, onChangeQuery, setOrderBy, toggleOrder, count
                 </Box>
                 <Box>
                     <Typography
-                        sx={{ marginRight: '20px'}}
+                        sx={styles.text}
                         component="span"
                     >
                         Elementos por página:
@@ -122,3 +122,22 @@ const FiltersBar = ({ setSearchBy, onChangeQuery, setOrderBy, toggleOrder, count
 }
 
 export default FiltersBar
+
+const styles = {
+    filtersWrapper: { 
+        marginTop: 4, 
+        padding: '20px', 
+        borderRadius: 1, 
+        boxShadow: 3 
+    },
+    toggleWrapper: {
+        alignSelf: 'center'
+    },
+    resultsRow: {
+        padding: 2,
+        justifyContent: 'space-between'
+    },
+    text: {
+        marginRight: '20px'
+    }
+}
