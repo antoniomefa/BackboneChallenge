@@ -1,7 +1,7 @@
 ## Backbone Challenge
 
 <p align="center">
-    <img src="/assets/addressbook.png" width="800"/>
+    <img src="/assets/hero.png" width="800"/>
 </p>
 
 ## Descripción del proyecto
