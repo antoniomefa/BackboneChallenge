@@ -1,22 +1,24 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useDispatch, useSelector } from 'react-redux'
 import { saveContact } from '../../../redux/slices/contactSlice'
-import { useFindOneContactMutation, useDeleteContactMutation } from '../../../services/api/contacts'
+import { useFindOneContactMutation, useDeleteContactMutation } from '../../../api/contacts'
 
-import { Box, Grid, Container, Typography, Button, Stack, CircularProgress } from '@mui/material'
+import { Box, Grid, Container, Typography, Button, CircularProgress } from '@mui/material'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import DeleteIcon from '@mui/icons-material/Delete'
-
+import { useErrorMessage } from '../../../hooks/useErrorMessage'
 import ContactItem from '../../components/ContactItem/ContactItem'
+import CustomSnackbar from '../../components/CustomSnackbar/CustomSnackbar'
 
-const DeleteContact = () => {
+const DeleteContact: React.FC = () => {
     const { query, back } = useRouter()
     const dispatch = useDispatch()
     const contact = useSelector((state: any) => { return state.contactSlice.contact })
     const [getContact, { isLoading: isLoadingContact }] = useFindOneContactMutation()
     const [deleteContact, { isLoading: isLoadingDeleting }] = useDeleteContactMutation()
-
+    const [ errorMessage, seterrorCode ] = useErrorMessage() // Custom hook que devuelve el mensaje de error del servidor
+    const [showSnackbar, setShowSnackbar] = useState<boolean>(false)
 
     useEffect(() => {
         ( async() => {
@@ -25,7 +27,8 @@ const DeleteContact = () => {
                 dispatch(saveContact(result))
             })
             .catch( error => {
-                console.log(error)
+                seterrorCode(error)
+                setShowSnackbar(true)
             })
         })()
     }, []) 
@@ -36,13 +39,14 @@ const DeleteContact = () => {
             back()
         })
         .catch((error) => {
-            console.log(error)
+            seterrorCode(error)
+            setShowSnackbar(true)
         })
     }
 
     return(
         <Container maxWidth='md' sx={{ marginTop: '20px'}} >
-            <Grid container xs={12} >
+            <Grid container >
                 <Box sx={{ flexGrow: 1 }}>
                     <Box sx={{ backgroundColor: '#1A2027', color: '#ffffff', borderRadius: 1, padding: '10px', textAlign: 'center' }}>
                         <Typography
@@ -77,6 +81,15 @@ const DeleteContact = () => {
                     </Grid>
                 </Box>
             </Grid>
+            {
+                showSnackbar && (
+                    <CustomSnackbar
+                        open={showSnackbar}
+                        setOpen={setShowSnackbar}
+                        message={errorMessage}
+                    />
+                )
+            }
         </Container>
     )
 }

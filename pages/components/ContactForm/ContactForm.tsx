@@ -1,24 +1,25 @@
 import React from 'react';
-import { useForm, Controller, SubmitHandler } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form"
 import { Grid, TextField, Button, InputAdornment, CircularProgress } from '@mui/material'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import SaveIcon from '@mui/icons-material/Save'
 import AccountCircle from '@mui/icons-material/AccountCircle'
 import PhoneIcon from '@mui/icons-material/Phone'
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail'
+import { ContactType } from '../../../utils/types';
 
 const ContactForm = ({ contact, handleEdit, handleClose, isLoadingUpdating, isEditing }) => {
     const { control, handleSubmit } = useForm({
         defaultValues: {
-            id: contact.id,
-            firstName: contact.firstName,
-            lastName: contact.lastName,
-            email: contact.email,
-            phone: contact.phone
+            id: contact.id || '',
+            firstName: contact.firstName || '',
+            lastName: contact.lastName || '',
+            email: contact.email || '',
+            phone: contact.phone || ''
         }
     })
 
-    const onSubmit = data => {
+    const onSubmit = (data: ContactType) => {
         handleEdit(data)
     };
 

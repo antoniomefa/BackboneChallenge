@@ -4,7 +4,7 @@ import { setupListeners } from "@reduxjs/toolkit/dist/query"
 import contactsListSlice from "./slices/contactsListSlice"
 import contactSlice from "./slices/contactSlice"
 
-import { contactsApi } from "../services/api/contacts"
+import { contactsApi } from "../api/contacts"
 
 export const store = configureStore({
     reducer: {

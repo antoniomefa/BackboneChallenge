@@ -9,7 +9,7 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 import theme from '../utils/theme';
 import createEmotionCache from '../utils/createEmotionCache';
 
-// Cache del lado del cleinte, compartido por toda la sesión del usuario en el navegador.
+// Cache del lado del clinte
 const clientSideEmotionCache = createEmotionCache();
 
 interface MyAppProps extends AppProps {
