@@ -1,7 +1,7 @@
 {
   "name": "backbone-systems-challenge",
   "version": "1.0.0",
-  "description": "A challenge for apply to the Sr Frontend Developer position at Backbone Systems",
+  "description": "A Contacts directory in NextJs and ReactJs",
   "main": "index.js",
   "scripts": {
     "dev": "NODE_OPTIONS='--inspect' next",

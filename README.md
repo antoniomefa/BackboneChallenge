@@ -1,4 +1,4 @@
-## Backbone Challenge
+## Directorio de contactos
 
 <p align="center">
     <img src="/assets/hero.png" width="800"/>
@@ -17,7 +17,7 @@
 - Validación de formularios con librería react-hook-form
 - Manejo del estado con Redux-Toolkit
 - Consumo del API con RTK-Query para el CRUD
-- Manejo de errores http con mensaje en un SnackBar personalizado
+- Manejo de errores http con mensaje en un SnackBar personalizado (Algunas respuestas del API son incorrectas)
 - Custom hook "useDebounce" que permite retrasar la búsqueda el tiempo especificado
 - Custom hook "useDidUpdateEffect" que permite evitar la primera ejecución de un efecto
 

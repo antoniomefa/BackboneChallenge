@@ -9,7 +9,7 @@ import { CacheProvider, EmotionCache } from '@emotion/react'
 import theme from '../utils/theme'
 import createEmotionCache from '../utils/createEmotionCache'
 
-// Cache del lado del clinte
+// Cache del lado del cliente
 const clientSideEmotionCache = createEmotionCache()
 
 interface MyAppProps extends AppProps {

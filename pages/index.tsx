@@ -12,15 +12,15 @@ const Home: React.FC = () => {
                         <Box sx={styles.hero}>
                             <Typography
                                 component="h1"
-                                variant="h3"
+                                variant="h2"
                             >
-                                Reto Técnico React Frontend Sr.
+                                Directorio de contactos
                             </Typography>
                             <Typography
                                 component="h2"
-                                variant="h4"
+                                variant="h5"
                             >
-                                para Backbone Systems
+                                ReactJs - NextJs - TypeScript - MaterialUI - Redux-Toolkit
                             </Typography>
                             <Typography
                                 sx={{ marginTop: 10 }}
@@ -33,7 +33,7 @@ const Home: React.FC = () => {
                                 component="h5"
                                 variant="h5"
                             >
-                                Antonio Mendiola Farías
+                                Antonio Mendiola Farías - 2023
                             </Typography>
                         </Box>
                     </Grid>
